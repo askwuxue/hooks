@@ -13,7 +13,7 @@ export default () => {
   const ref = useRef(null);
   const size = useSize(ref);
   return (
-    <div ref={ref}>
+    <div ref={ref} style={{ padding: '10px' }}>
       <p>Try to resize the preview window </p>
       <p>
         width: {size?.width}px, height: {size?.height}px
