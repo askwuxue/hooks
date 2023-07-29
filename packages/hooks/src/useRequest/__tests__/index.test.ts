@@ -2,17 +2,21 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import useRequest from '../index';
 import { request } from '../../utils/testingHelpers';
 
+// 这种方式复写了原始的error方法，为了不被代码中的error输出影响。如果不复写，会在测试中看到error的输出
 const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
 describe('useRequest', () => {
   beforeAll(() => {
+    // mock timer
     jest.useFakeTimers();
   });
 
   afterAll(() => {
+    // 还原对error mock的处理
     errorSpy.mockRestore();
   });
 
+  // 执行hook，将hook的返回值赋值给hook变量
   const setUp = (service, options) => renderHook((o) => useRequest(service, o || options));
   let hook;
   it('useRequest should auto run', async () => {
@@ -20,6 +24,7 @@ describe('useRequest', () => {
     const successCallback = (text) => {
       success = text;
     };
+    // mock 一个错误回调，为什么只有错误回调时通过jest mock的呢
     const errorCallback = jest.fn();
     const beforeCallback = () => {
       value = 'before';
@@ -27,7 +32,7 @@ describe('useRequest', () => {
     const finallyCallback = () => {
       value = 'finally';
     };
-    //auto run success
+    //运行一个函数，即使是异步函数
     act(() => {
       hook = setUp(request, {
         onSuccess: successCallback,
@@ -40,6 +45,7 @@ describe('useRequest', () => {
     expect(value).toBe('before');
     expect(success).toBeUndefined();
 
+    // 执行所有的timer 函数，不只是setTimeout，应该含有其他的定时器。这里就是setTimeout 1000ms
     act(() => {
       jest.runAllTimers();
     });
@@ -51,6 +57,7 @@ describe('useRequest', () => {
 
     //manual run fail
     act(() => {
+      // 手动执行失败
       hook.result.current.run(0);
     });
     expect(hook.result.current.loading).toBe(true);
@@ -74,6 +81,7 @@ describe('useRequest', () => {
     expect(hook.result.current.data).toBe('success');
     await waitFor(() => expect(hook.result.current.loading).toBe(false));
     expect(errorCallback).toHaveBeenCalledTimes(1);
+    // 解绑hook
     hook.unmount();
 
     //auto run fail

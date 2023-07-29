@@ -3,6 +3,7 @@ import useRequest from '../index';
 import { request } from '../../utils/testingHelpers';
 
 describe('useAutoRunPlugin', () => {
+  // 为什么这里只mock一次，而不是每个测试用例都mock一次呢，是不是因为这个mock的是全局的，所以只需要mock一次就可以了
   jest.useFakeTimers();
 
   const setUp = (service, options) => renderHook((o) => useRequest(service, o || options));

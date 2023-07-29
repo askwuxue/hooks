@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 import { isObject } from '../utils';
 
+// interface IConnectionState extends EventTarget {
+//   rtt?: number;
+//   type?: string;
+//   saveData?: boolean;
+//   downlink?: number;
+//   downlinkMax?: number;
+//   effectiveType?: string;
+// }
+
 export interface NetworkState {
   since?: Date;
   online?: boolean;
@@ -18,7 +27,14 @@ enum NetworkEventType {
   CHANGE = 'change',
 }
 
+// interface NavigatorType<T> extends Navigator {
+//   connection?: T;
+//   mozConnection?: T;
+//   webkitConnection?: T;
+// }
+
 function getConnection() {
+  // const nav = navigator as NavigatorType<IConnectionState>;
   const nav = navigator as any;
   if (!isObject(nav)) return null;
   return nav.connection || nav.mozConnection || nav.webkitConnection;

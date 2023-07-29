@@ -16,6 +16,10 @@ function observer<T extends Record<string, any>>(initialVal: T, cb: () => void):
     return existingProxy;
   }
 
+  // if (proxyMap.has(initialVal)) {
+  //   return proxyMap.get(initialVal)
+  // }
+
   // 防止代理已经代理过的对象
   // https://github.com/alibaba/hooks/issues/839
   if (rawMap.has(initialVal)) {

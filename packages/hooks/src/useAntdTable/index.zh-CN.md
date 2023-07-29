@@ -29,7 +29,7 @@ nav:
 
 <br />
 
-<code src="./demo/table.tsx" />
+<!-- <code src="./demo/table.tsx" /> -->
 
 ### Form 与 Table 联动
 
@@ -42,7 +42,7 @@ nav:
 
 以下示例你可以体验表单与表格联动。
 
-<code src="./demo/form.tsx" />
+<!-- <code src="./demo/form.tsx" /> -->
 
 ### 初始化数据
 
@@ -58,13 +58,13 @@ nav:
 
 表单提交之前，我们会调用 `form.validateFields` 来校验表单数据，如果验证不通过，则不会发起请求。
 
-<code src="./demo/validate.tsx" />
+<!-- <code src="./demo/validate.tsx" /> -->
 
 ### 缓存
 
 通过设置 `cacheKey`，我们可以实现 `Form` 与 `Table` 数据缓存。
 
-<code src="./demo/cache.tsx" />
+<!-- <code src="./demo/cache.tsx" /> -->
 
 ## API
 

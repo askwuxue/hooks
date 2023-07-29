@@ -20,6 +20,7 @@ interface Result {
 }
 
 const getTableData = ({ current, pageSize }, formData: Object): Promise<Result> => {
+  console.log('formData: ---------------->', formData);
   let query = `page=${current}&size=${pageSize}`;
   Object.entries(formData).forEach(([key, value]) => {
     if (value) {

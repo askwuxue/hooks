@@ -100,6 +100,7 @@ const useExternal = (path?: string, options?: Options) => {
       setStatus('unset');
       return;
     }
+    // 这个正则表达式没看懂干啥的
     const pathname = path.replace(/[|#].*$/, '');
     if (options?.type === 'css' || (!options?.type && /(^css!|\.css$)/.test(pathname))) {
       const result = loadCss(path, options?.css);

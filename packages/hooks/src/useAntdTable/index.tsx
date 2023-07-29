@@ -129,17 +129,22 @@ const useAntdTable = <TData extends Data, TParams extends Params>(
             ...(params?.[0] || {}),
             current: 1,
           };
+          // console.log('params: 22222222222222222', params);
+          // console.log('initPagination: ', initPagination);
+          // console.log('pagination: ', pagination);
           if (!form) {
             // @ts-ignore
             run(pagination);
             return;
           }
 
+          console.log('allFormDataRef.current: ', allFormDataRef.current);
           // record all form data
           allFormDataRef.current = {
             ...allFormDataRef.current,
             ...values,
           };
+          console.log('values: ', values);
 
           // @ts-ignore
           run(pagination, values, {
@@ -195,6 +200,7 @@ const useAntdTable = <TData extends Data, TParams extends Params>(
     }
     if (!manual && ready) {
       allFormDataRef.current = defaultParams?.[1] || {};
+      console.log('defaultParams: ', defaultParams);
       restoreForm();
       _submit(defaultParams?.[0]);
     }
